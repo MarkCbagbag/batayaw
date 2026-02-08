@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise For You 💕</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container-main">
+        <!-- Landing Screen (Surprise Reveal) -->
+        <section class="landing-screen" id="landingScreen">
+            <div class="landing-content">
+                <h1 class="title">Open If...</h1>
+                <p class="subtitle">You want to see something special 💝</p>
+
+                <div class="hearts-animation">
+                    <span class="heart">❤️</span>
+                    <span class="heart">💕</span>
+                    <span class="heart">💖</span>
+                    <span class="heart">💗</span>
+                </div>
+
+                <button class="unlock-btn" id="unlockBtn">
+                    <span class="btn-text">Click to Reveal</span>
+                    <span class="btn-icon">🔒</span>
+                </button>
+
+                <p class="hint">✨ Click the button to unlock your surprise ✨</p>
+            </div>
+
+            <!-- Particles -->
+            <div class="particles" id="particles"></div>
+        </section>
+
+        <!-- Main Menu (After Unlock) -->
+        <section class="main-menu" id="mainMenu" style="display: none;">
+            <div class="menu-header">
+                <h1>Hi, My Love! 💕</h1>
+                <p>I created something special for you...</p>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-card" id="galleryCard">
+                    <div class="card-icon">📸</div>
+                    <h2>Our Memories</h2>
+                    <p>View our beautiful moments together</p>
+                    <div class="card-arrow">→</div>
+                </div>
+
+                <div class="menu-card" id="messagesCard">
+                    <div class="card-icon">💌</div>
+                    <h2>Love Messages</h2>
+                    <p>Words from my heart to yours</p>
+                    <div class="card-arrow">→</div>
+                </div>
+
+                <div class="menu-card" id="timelineCard">
+                    <div class="card-icon">📅</div>
+                    <h2>Our Timeline</h2>
+                    <p>Our journey together</p>
+                    <div class="card-arrow">→</div>
+                </div>
+
+                <div class="menu-card" id="gamesCard">
+                    <div class="card-icon">🎮</div>
+                    <h2>Games & Surprises</h2>
+                    <p>Fun interactive games and surprises</p>
+                    <div class="card-arrow">→</div>
+                </div>
+            </div>
+
+            <div class="menu-footer">
+                <p>Made with 💕 for you</p>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section" id="gallerySection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" data-back="menu">← Back</button>
+                <h2>Our Beautiful Memories 📸</h2>
+            </div>
+
+            <div class="gallery-container">
+                <p class="gallery-note">Add your favorite photos in the img/ folder</p>
+                <div style="margin: 12px 0; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                    <button id="addPhotoBtn" class="btn">➕ Add Picture</button>
+                    <button id="selectAllBtn" class="btn">Select All</button>
+                    
+                    <input type="file" id="photoInput" accept="image/*,video/*" style="display:none">
+                    <input type="file" id="photoInput" accept="image/*,video/*" style="display:none">
+                    <span id="uploadStatus" style="margin-left:12px;color:#666;font-size:0.95rem"></span>
+                    <span id="selectionCount" style="margin-left:12px;color:#666;font-size:0.95rem"></span>
+                </div>
+                <div class="gallery-grid" id="galleryGrid">
+                    <div class="gallery-item-placeholder">
+                        <div class="placeholder-icon">📷</div>
+                        <p>Add your photos here!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Messages Section -->
+        <section class="messages-section" id="messagesSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" data-back="menu">← Back</button>
+                <h2>Love Messages 💌</h2>
+            </div>
+
+            <div class="messages-container">
+                <!-- Add Message Form -->
+                <div class="message-form-wrapper">
+                    <h3 class="message-form-title">📝 Share Your Love</h3>
+                    <form id="addMessageForm" class="message-form">
+                        <div class="form-group">
+                            <input 
+                                type="text" 
+                                id="msgSender" 
+                                placeholder="Your name" 
+                                class="form-input"
+                                maxlength="50"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <textarea 
+                                id="msgText" 
+                                placeholder="Write a heartfelt message..." 
+                                class="form-textarea"
+                                rows="3"
+                                maxlength="200"
+                            ></textarea>
+                            <span class="char-count"><span id="charCount">0</span>/200</span>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-submit" type="submit">💕 Send Message</button>
+                            <span id="messageStatus" class="message-status"></span>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="messages-divider">OR</div>
+
+                <!-- Messages List -->
+                <div id="messagesList" class="message-list">
+                    <!-- Messages will be loaded here dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section" id="timelineSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" data-back="menu">← Back</button>
+                <h2>Our Journey Together 📅</h2>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>The Day We Met</h3>
+                        <p class="timeline-date">That magical moment...</p>
+                        <p>Everything changed when I saw you for the first time.
+                            It was like the universe was telling me "here she is".</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>First Kiss</h3>
+                        <p class="timeline-date">The moment my heart knew it was forever...</p>
+                        <p>That kiss was the most beautiful moment.
+                            I knew right then that you were the one for me.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Our Adventures</h3>
+                        <p class="timeline-date">Every moment is an adventure with you...</p>
+                        <p>Whether we're exploring new places or just sitting together,
+                            every moment with you is special and unforgettable.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Forever Starts Now</h3>
+                        <p class="timeline-date">Our beautiful future...</p>
+                        <p>I can't wait for all the memories we'll create together.
+                            With you by my side, I know our best days are ahead of us.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why I Love You Section -->
+        <section class="love-reasons-section" id="loveReasonsSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" data-back="menu">← Back</button>
+                <h2>Why I Love You ✨</h2>
+            </div>
+
+            <div class="reasons-container">
+                <div class="reason-card">
+                    <div class="reason-number">1</div>
+                    <h3>Your Smile</h3>
+                    <p>It's the most beautiful thing I've ever seen. It lights up my entire world.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">2</div>
+                    <h3>Your Kindness</h3>
+                    <p>The way you care about others shows the beautiful soul you have.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">3</div>
+                    <h3>Your Laugh</h3>
+                    <p>It's contagious and makes my heart so happy every single time.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">4</div>
+                    <h3>Your Strength</h3>
+                    <p>You inspire me to be a better person every day.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">5</div>
+                    <h3>Your Eyes</h3>
+                    <p>I could get lost in them forever. They hold all the love I need.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">6</div>
+                    <h3>Your Love</h3>
+                    <p>The way you love me makes me feel like the luckiest person alive.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">7</div>
+                    <h3>Your Dreams</h3>
+                    <p>I love your ambition and your passion for everything you do.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">8</div>
+                    <h3>Your Touch</h3>
+                    <p>Every time you hold my hand, I feel safe and loved.</p>
+                </div>
+
+                <div class="reason-card">
+                    <div class="reason-number">9</div>
+                    <h3>Just... Everything</h3>
+                    <p>Because you are you, and that's more than enough. You are everything to me.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games & Surprises Section -->
+        <section class="games-section" id="gamesSection" style="display: none;">
+            <div class="section-header">
+                <button class="back-btn" data-back="menu">← Back</button>
+                <h2>Games & Surprises 🎮</h2>
+            </div>
+
+            <div class="games-container">
+                <!-- Love Quiz -->
+                <div class="game-card" id="quizGameCard">
+                    <div class="game-icon">❓</div>
+                    <h3>Love Quiz</h3>
+                    <p>Test how well I know you! 💕</p>
+                    <button class="game-btn" onclick="startQuiz()">Play Quiz</button>
+                </div>
+
+                <!-- Memory Match -->
+                <div class="game-card" id="memoryGameCard">
+                    <div class="game-icon">🧩</div>
+                    <h3>Memory Match</h3>
+                    <p>Match the hearts and emojis! 💖</p>
+                    <button class="game-btn" onclick="startMemoryGame()">Play Game</button>
+                </div>
+
+                <!-- Scratch Card -->
+                <div class="game-card" id="scratchCardGame">
+                    <div class="game-icon">🎁</div>
+                    <h3>Scratch Card</h3>
+                    <p>Scratch to reveal a surprise! ✨</p>
+                    <button class="game-btn" onclick="startScratchCard()">Scratch Card</button>
+                </div>
+
+                <!-- Love Calculator -->
+                <div class="game-card" id="loveCalcCard">
+                    <div class="game-icon">💑</div>
+                    <h3>Our Love %</h3>
+                    <p>Check our love percentage! 💯</p>
+                    <button class="game-btn" onclick="calculateLove()">Calculate</button>
+                </div>
+
+                <div class="game-card" id="wheelCard">
+                    <div class="game-icon">🎡</div>
+                    <h3>Spin the Wheel</h3>
+                    <p>Random romantic challenges! 🎯</p>
+                    <button class="game-btn" onclick="startWheelGame()">Spin</button>
+                </div>
+
+                <div class="game-card" id="trivia">
+                    <div class="game-icon">🧠</div>
+                    <h3>Love Trivia</h3>
+                    <p>Romantic trivia questions! 🎓</p>
+                    <button class="game-btn" onclick="startTrivia()">Play</button>
+                </div>
+
+                <div class="game-card" id="fortuneCard">
+                    <div class="game-icon">🔮</div>
+                    <h3>Fortune Teller</h3>
+                    <p>Your romantic future awaits! ✨</p>
+                    <button class="game-btn" onclick="startFortune()">Read</button>
+                </div>
+
+                <!-- Quiz Modal -->
+                <div id="quizModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <button class="close-modal" onclick="closeQuiz()">✕</button>
+                        <h2>Love Quiz 💕</h2>
+                        <div id="quizContent"></div>
+                    </div>
+                </div>
+
+                <!-- Memory Game -->
+                <div id="memoryModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <button class="close-modal" onclick="closeMemoryGame()">✕</button>
+                        <h2>Memory Match 🧩</h2>
+                        <p id="memoryScore"></p>
+                        <div id="memoryGrid" class="memory-grid"></div>
+                        <button class="game-btn" onclick="resetMemoryGame()" style="margin-top: 1rem;">Reset
+                            Game</button>
+                    </div>
+                </div>
+
+                <!-- Scratch Card Modal -->
+                <div id="scratchModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <button class="close-modal" onclick="closeScratchCard()">✕</button>
+                        <h2>Scratch & Reveal 🎁</h2>
+                        <canvas id="scratchCanvas" width="300" height="200"
+                            style="border: 2px solid #ff6b9d; cursor: pointer; display: block; margin: 2rem auto; background: linear-gradient(135deg, #ff6b9d, #feca57); border-radius: 10px;"></canvas>
+                        <p style="text-align: center; font-size: 0.9rem; color: #999;">Scratch with your mouse to
+                            reveal!</p>
+                    </div>
+                </div>
+
+                <!-- Love Calculator Modal -->
+                <div id="calcModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <button class="close-modal" onclick="closeCalc()">✕</button>
+                        <h2>Our Love Compatibility ❤️</h2>
+                        <div id="calcResult" style="text-align: center;"></div>
+                    </div>
+                </div>
+
+                <!-- Spin the Wheel Modal -->
+                <div id="wheelModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <button class="close-modal" onclick="closeWheel()">✕</button>
+                        <h2>Spin the Wheel 🎡</h2>
+                        <div id="wheelContent" style="text-align: center;"></div>
+                    </div>
+                </div>
+
+                <!-- Trivia Modal -->
+                <div id="triviaModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <button class="close-modal" onclick="closeTrivia()">✕</button>
+                        <h2>Love Trivia 🧠</h2>
+                        <div id="triviaContent" style="text-align: center;"></div>
+                    </div>
+                </div>
+
+                <!-- Fortune Modal -->
+                <div id="fortuneModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <button class="close-modal" onclick="closeFortune()">✕</button>
+                        <h2>Fortune Teller 🔮</h2>
+                        <div id="fortuneContent" style="text-align: center;"></div>
+                    </div>
+                </div>
+        </section>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/games.js"></script>
+</body>
+
+</html>
